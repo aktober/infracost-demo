@@ -17,8 +17,8 @@ jobs:
         INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Do not change
         # See the cloud credentials section for the options
-        ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        TF_VAR_ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+        TF_VAR_SECRET_KEY: ${{ secrets.SECRET_KEY }}
       with:
         path: .
         terraform_plan_flags: -var-file=my.tfvars
