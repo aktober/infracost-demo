@@ -24,6 +24,9 @@ jobs:
         id: plan
         run: terraform plan -out plan.tfplan
         working-directory: .
+        env:
+          TF_VAR_ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          TF_VAR_SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
       - name: "Terraform show"
         id: show
@@ -38,7 +41,7 @@ jobs:
         env:
           INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TF_VAR_ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
-          TF_VAR_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+#          TF_VAR_ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+#          TF_VAR_SECRET_KEY: ${{ secrets.SECRET_KEY }}
         with:
           path: plan.json # Do not change as this file is generated above
