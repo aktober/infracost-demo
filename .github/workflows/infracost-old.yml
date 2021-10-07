@@ -1,0 +1,24 @@
+on:
+  pull_request:
+    paths:
+    - '**.tf'
+    - '**.tfvars'
+    - '**.tfvars.json'
+jobs:
+  infracost:
+    runs-on: ubuntu-latest
+    name: Show infracost diff
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+    - name: Run infracost diff
+      uses: infracost/infracost-gh-action@master # Use a specific version instead of master if locking is preferred
+      env:
+        INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Do not change
+        # See the cloud credentials section for the options
+        TF_VAR_ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+        TF_VAR_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      with:
+        path: .
+        terraform_plan_flags: -var-file=my.tfvars
